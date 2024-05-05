@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Sitter</title>
+</head>
+<body>
+    <h1>Edit Sitter</h1>
+    <p>This is the editsitter page</p>
+    <form action="{% url "editsitter" sitter_id %}" method="POST">
+        {% csrf_token %}
+     {{ form }} 
+     <input type="submit" value="Update Sitter">  
+    </form>
+</body>
+</html>
+
+
+
+
+
+{% comment %} {% extends "base.html" %}
+
+{% block title %} EditSitter {% endblock %}
+
+{% block content %} {% endcomment %}
+{% comment %} <h1>Edit Sitter</h1>
+<p>This is the editsitter page</p> {% endcomment %}
+{% comment %} {% endblock %} {% endcomment %}
