@@ -37,10 +37,10 @@
                 <td px-6 py-4>{{ sitter.gender }}</td>
                 <td px-6 py-4>{{ sitter.contact }}</td>
                 <td class="px-6 py-4">
-                    <a href="{% url "editsitter" %}">
+                    <a href="{% url "editsitter" sitter.id %}">
                         <button type="submit" class="px-1 py-0 bg-purple-800 text-white hover:bg-pink-300 rounded-lg">Edit</button>
                     </a>
-                    <a href="{% url "deletesitter" %}">
+                    <a href="{% url "deletesitter" sitter.id %}">
                         <button type="submit" class="px-1 py-0 bg-purple-800 text-white hover:bg-pink-300 rounded-lg">Delete</button>  
                     </a>
                 </td>

@@ -27,7 +27,7 @@ def addsitter(request):
     else:
         form = SitterForm()
         sitterlist = Sitter.objects.all()     
-        return render(request,'daystar_app/addsitter.html', {"sitterlist":sitterlist, "form":form})
+        return render(request,'daystar_app/addsitter.html', {"sitterlist":sitterlist})
 
 
 #create view for editsitter page
@@ -48,7 +48,7 @@ def editsitter(request, sitter_id):
             sitter.contact = contact
             sitter.save()
             redirect_url = reverse('sitter')
-            return redirect(redirect_url)
+            return HttpResponseRedirect(redirect_url)
     else:
         form = SitterForm(initial={'name': sitter.name, 'gender': sitter.gender, 'contact': sitter.contact})            
         return render(request,'daystar_app/editsitter.html', {'form': form, 'sitter_id': sitter_id})
