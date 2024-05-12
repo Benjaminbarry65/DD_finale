@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'daystar_app',
+    'baby_app',
+    'home_app',
 ]
 
 MIDDLEWARE = [

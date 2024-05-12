@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitters</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-purple-300">
+    <nav class="flex bg-purple-800 gap-2 p-4 items-end text-white">
+        <div>
+            <a href="/home" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                <img src="{% static "home_app/images/daystar_logo_2.jpg" %}" class="h-8 rounded-lg" alt="Daystar_Daycare_Logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Daystar Daycare</span>
+            </a>
+            <div class="justify-end">
+                <a href="/home" class="px-1">Home</a>
+                <a href="/baby" class="px-1">Babies</a>
+                <a href="/sitter" class="text-pink-300 px-1">Sitters</a>
+                <a href="/abouts" class="px-1">About</a>
+                <a href="/contacts" class="px-1">Contact</a> 
+            </div>
+        </div>   
+    </nav> 
+    
+    <div class="bg-white m-4 shadow-lg flex flex-col gap-2 max-w-sm mx-auto py-5 px-2">
+        <p class="text-gray-500"> #{{ sitter.id }} </p>
+        <h1 class="font-bold text-xl"> {{ sitter.name }} </h1>
+        <p class="text-gray-500"> {{ sitter.location }} </p>
+        <p class="text-gray-500"> {{ sitter.dob }} </p>
+        <p class="text-gray-500"> {{ sitter.gender }} </p>
+        <p class="text-gray-500"> {{ sitter.next_kin }} </p>
+        <p class="text-gray-500"> {{ sitter.nin }} </p>
+        <p class="text-gray-500"> {{ sitter.recomm_name }} </p>
+        <p class="text-gray-500"> {{ sitter.religion }} </p>
+        <p class="text-gray-500"> {{ sitter.level_education }} </p>
+        <p class="text-gray-500"> {{ sitter.contact }} </p>
+
+        <div>
+            <a href="{% url "editsitter" sitter.id %}">
+                <button type="submit" class="px-1 py-0 bg-purple-800 text-white hover:bg-pink-300 rounded-lg">Edit</button>
+            </a>
+        </div>
+        <div>
+            <a href="{% url "deletesitter" sitter.id %}">
+                <button type="submit" class="px-1 py-0 bg-purple-800 text-white hover:bg-pink-300 rounded-lg">Delete</button>  
+            </a>
+        </div>
+        
+    </div>
+
+    {% comment %} <div>
+        <form action="" class="max-w-sm mx-auto py-5">
+            {% csrf_token %}
+
+            
+        </form>
+    </div>  {% endcomment %}
+
+
+    
+</body>
+</html>
+
+
+
+
+
+{% comment %} {% extends "base.html" %}
+
+{% block title %} Sitters {% endblock %}
+
+{% block content %} {% endcomment %}
+{% comment %} <h1>Sitters</h1>
+<p>This is the sitters page</p> {% endcomment %}
+{% comment %} {% endblock %} {% endcomment %}

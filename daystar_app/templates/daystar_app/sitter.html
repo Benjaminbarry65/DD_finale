@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,20 +7,70 @@
     <title>Sitters</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Sitters</h1>
-    <p>This is the sitters page</p>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+<body class="bg-purple-300">
+    <nav class="flex bg-purple-800 gap-2 p-4 items-end text-white">
+        <div>
+            <a href="/home" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                <img src="{% static "home_app/images/daystar_logo_2.jpg" %}" class="h-8 rounded-lg" alt="Daystar_Daycare_Logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Daystar Daycare</span>
+            </a>
+            <div class="justify-end">
+                <a href="/home" class="px-1">Home</a>
+                <a href="/baby" class="px-1">Babies</a>
+                <a href="sitter" class="text-pink-300 px-1">Sitters</a>
+                <a href="/abouts" class="px-1">About</a>
+                <a href="/contacts" class="px-1">Contact</a> 
+            </div>
+        </div>   
+    </nav>    
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5">
+        <div class="flex flex-wrap">
+            <div class="w-1/2">
+                <form action="post" class="p-4">
+                    <input class="form-control p-4 rounded-lg" type="text" name="search" placeholder="Search Sitter">
+                    <button type="submit" class="text-white bg-purple-800 hover:bg-pink-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Search</button>
+                </form>
+            </div>     
+            <div class="p-4 w-1/2 flex justify-end">
+                <a href="add"> 
+                    <button type="submit" class="text-white bg-purple-800 hover:bg-pink-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Sitter</button>
+                </a>
+            </div>
+        </div>
+    </div>    
+    <table class="w-full text-sm text-left rtl:text-right text-black-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    #
+                    Sitter Number 
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Name
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    Location 
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    D.O.B 
+                </th>
+                <th scope="col" class="px-6 py-3">
                     Gender
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Next of Kin 
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    N.I.N 
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Recommender 
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Religion 
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Level of Education
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Contact
@@ -34,14 +85,21 @@
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ sitter.id }}</th>
                 <td px-6 py-4>{{ sitter.name }}</td>
+                <td px-6 py-4>{{ sitter.location }}</td>
+                <td px-6 py-4>{{ sitter.dob }}</td>
                 <td px-6 py-4>{{ sitter.gender }}</td>
+                <td px-6 py-4>{{ sitter.next_kin }}</td>
+                <td px-6 py-4>{{ sitter.nin }}</td>
+                <td px-6 py-4>{{ sitter.recomm_name }}</td>
+                <td px-6 py-4>{{ sitter.religion }}</td>
+                <td px-6 py-4>{{ sitter.level_education }}</td>
                 <td px-6 py-4>{{ sitter.contact }}</td>
                 <td class="px-6 py-4">
                     <a href="{% url "editsitter" sitter.id %}">
                         <button type="submit" class="px-1 py-0 bg-purple-800 text-white hover:bg-pink-300 rounded-lg">Edit</button>
                     </a>
-                    <a href="{% url "deletesitter" sitter.id %}">
-                        <button type="submit" class="px-1 py-0 bg-purple-800 text-white hover:bg-pink-300 rounded-lg">Delete</button>  
+                    <a href="/sitter/view/{{ sitter.id }}/">
+                        <button type="submit" class="px-1 py-0 bg-purple-800 text-white hover:bg-pink-300 rounded-lg">View</button>  
                     </a>
                 </td>
             </tr>

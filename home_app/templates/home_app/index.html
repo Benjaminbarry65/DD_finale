@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daystar Daycare</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-purple-300">
+    <nav class="flex bg-purple-800 gap-2 p-4 items-center text-white">
+        {% comment %} <div> {% endcomment %}
+            <a href="home" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                <img src="{% static "home_app/images/daystar_logo_2.jpg" %}" class="h-8 rounded-lg" alt="Daystar_Daycare_Logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Daystar Daycare</span>
+            </a>
+            <div class="justify-items-end">
+                <a href="home" class="">
+                    <button type="submit" class="px-2 py-2 bg-purple-300 text-white hover:bg-pink-300 rounded-lg">Login</button>
+                </a>
+                <a href="#" class="">
+                    <button type="submit" class="px-2 py-2 bg-purple-300 text-white hover:bg-pink-300 rounded-lg">Register</button>
+                </a> 
+            </div>
+        {% comment %} </div>    {% endcomment %}
+    </nav>
+    <div class="bg-cover h-dvh w-screen px-10 " 
+        style="background-image: url('{% static "home_app/images/daystar_logo_2.jpg" %}'); backdrop-grayscale-0 bg-white/30 bg-cover h-dvh w-500 px-10">
+        <div>
+            <p class="font-black text-6xl text-purple-800 text-center mt-100 border-5 border-white">WELCOME</p>
+            <p class="font-black text-6xl text-purple-800 text-center mt-100">TO</p>
+            <p class="font-black text-6xl text-purple-800 text-center mt-100">DAYSTAR DAYCARE</p>
+        </div>
+    </div>
+
+
+</body>
+</html>
