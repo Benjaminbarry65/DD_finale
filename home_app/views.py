@@ -18,3 +18,7 @@ def aboutindex(request):
 #create view for the contact page
 def contactindex(request):
     return render(request, 'home_app/contact.html')
+
+#create view for the login page
+def loginindex(request):
+    return render(request, 'registration/login.html')    

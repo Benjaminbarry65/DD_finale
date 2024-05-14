@@ -7,5 +7,6 @@ urlpatterns = [
     path('editbaby/<int:baby_id>', views.editbaby, name='editbaby'),
     path('deletebaby/<int:baby_id>', views.deletebaby, name='deletebaby'),
     path('viewbaby/<int:baby_id>', views.viewbaby, name='viewbaby'),
-    path('pickup', views.pickup, name='pickup'),
+    path('pickupbaby', views.pickupbaby, name='pickupbaby'),
+    path('pickup/<int:baby_id>', views.pickup, name='pickup'),
 ]

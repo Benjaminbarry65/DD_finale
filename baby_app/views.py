@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import *
-from .forms import BabyForm
+from .forms import *
 from django.template import loader
 
 # Create your views here.
@@ -26,9 +26,9 @@ def addbaby(request):
             name_parents = form.cleaned_data['name_parents']
             amount_paid = form.cleaned_data['amount_paid']
             period_stay = form.cleaned_data['period_stay']
-            baby_number = form.cleaned_data['baby_number']
-            Baby.objects.create(name=name, gender= gender, age=age, location=location, name_dropper=name_dropper, time_arrival=time_arrival, name_parents=name_parents, amount_paid=amount_paid, period_stay=period_stay, baby_number=baby_number)
-            return HttpResponseRedirect(reverse("baby"))
+            #baby_number = form.cleaned_data['baby_number']
+            Baby.objects.create(name=name, gender= gender, age=age, location=location, name_dropper=name_dropper, time_arrival=time_arrival, name_parents=name_parents, amount_paid=amount_paid, period_stay=period_stay) #baby_number=baby_number)
+            return HttpResponseRedirect(reverse('baby'))
     else:
         form = BabyForm()
     babylist = Baby.objects.all()    
@@ -49,7 +49,7 @@ def editbaby(request, baby_id):
             name_parents = form.cleaned_data['name_parents']
             amount_paid = form.cleaned_data['amount_paid']
             period_stay = form.cleaned_data['period_stay']
-            baby_number = form.cleaned_data['baby_number']
+            #baby_number = form.cleaned_data['baby_number']
 
           #updating fields in the database
             baby.name = name
@@ -61,12 +61,12 @@ def editbaby(request, baby_id):
             baby.name_parents = name_parents
             baby.amount_paid = amount_paid
             baby.period_stay = period_stay
-            baby.baby_number =baby_number
+            #baby.baby_number =baby_number
             baby.save()
             redirect_url = reverse('baby')
             return HttpResponseRedirect(redirect_url)
     else:
-        form = BabyForm(initial={'name':name, 'gender':gender, 'age':age, 'location':location, 'name_dropper':name_dropper, 'time_arrival':time_arrival, 'name_parents':name_parents, 'amount_paid':amount_paid, 'period_stay':period_stay, 'baby_number':baby_number})
+        form = BabyForm(initial={'name':name, 'gender':gender, 'age':age, 'location':location, 'name_dropper':name_dropper, 'time_arrival':time_arrival, 'name_parents':name_parents, 'amount_paid':amount_paid, 'period_stay':period_stay}) # 'baby_number':baby_number})
     return render(request, 'baby_app/editbaby.html', {'form': form, 'baby_id':baby_id})    
 
 #create view to delete baby 
@@ -82,10 +82,23 @@ def viewbaby(request, baby_id):
     template = loader.get_template('baby_app/viewbaby.html')
     return HttpResponse(template.render(context))    
 
-#create view for baby pick-up page    
+#create view for baby pick-up page   
+def pickupbaby(request):
+    babylist = Baby.objects.all()
+    return render(request, 'baby_app/babypick.html', {'babylist': babylist})
+
+
 def pickup(request, baby_id):
     baby = Baby.objects.get(id=baby_id)
     if request.method == 'POST':
         form = BabyForm(request.POST)
         if form.is_valid():
-            time_picked = form.cleaned_data['time_picked']
+            baby_picked = form.cleaned_data['baby_picked']
+            name_picker = form.cleaned_data['name_picker']
+            comment = form.cleaned_data['comment']
+            Baby.objects.create(baby_picked=baby_picked, name_picker=name_picker, comment=comment)
+            return HttpResponseRedirect('pickupbaby')
+    else:        
+        form = PickupForm()
+    babylist = Baby.objects.all()
+    return render(request, 'baby_app/pickup.html', {'babylist': babylist})    
