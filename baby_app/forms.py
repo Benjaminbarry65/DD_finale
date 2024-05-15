@@ -52,3 +52,23 @@ class PickupForm(forms.Form):
     baby_picked = forms.DateTimeField()  
     name_picker = forms.CharField(max_length=100)
     comment = forms.CharField(max_length=300)
+
+
+
+
+class ItemForm(forms.Form):
+    item_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
+    item_quantity = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}), required=False)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        item_name = cleaned_data.get('item_name')
+        item_quantity = cleaned_data.get('item_quantity')
+
+        if not item_name or not item_quantity:
+            self.add_error('item_name', 'Please add an item name')
+            self.add_error('item_quantity', 'Please add an item quantity')
+        elif item_quantity < 1:
+            self.add_error('item_quantity', 'Item quantity must be atleast 1')
+
+        return cleaned_data    

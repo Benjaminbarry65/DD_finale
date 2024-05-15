@@ -28,14 +28,29 @@ class Baby(models.Model):
         return self.name
 
 class Pickup(models.Model):
-    #baby_name = models.ForeignKey(Baby, on_delete=models.CASCADE, null=False, blank=False, default=0)
-    #baby_dropper = models.ForeignKey(Baby, on_delete=models.CASCADE)
-    #baby_arrival = models.ForeignKey(Baby, on_delete=models.CASCADE)
+    baby_info = models.ForeignKey(Baby, on_delete=models.CASCADE)
     baby_picked = models.DateTimeField(auto_now_add=True)  
     name_picker = models.CharField(max_length=100)
     comment = models.CharField(max_length=300)
 
+    @property
+    def name(self):
+        return self.baby_info.name 
+
+    @property
+    def name_dropper(self):
+        return self.baby_info.name_dropper
+
+    @property
+    def time_arrival(self):
+        return self.baby_info.time_arrival
+
+
+class Item(models.Model):
+    item_name = models.CharField(max_length=50)
+    item_quantity = models.IntegerField()
+
     def __str__(self):
-        return self.name 
+        return self.item_name
 
         

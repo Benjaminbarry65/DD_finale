@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import *
@@ -8,7 +8,7 @@ from django.template import loader
 # Create your views here.
 #create views for baby page
 def babyhome(request):
-   #form = BabyForm()
+    #form = BabyForm()
     babylist = Baby.objects.all()
     return render(request, 'baby_app/baby.html', {'babylist': babylist})
 
@@ -16,6 +16,7 @@ def babyhome(request):
 def addbaby(request):
     if request.method == 'POST':
         form = BabyForm(request.POST)
+        print(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
             gender = form.cleaned_data['gender']
@@ -28,11 +29,11 @@ def addbaby(request):
             period_stay = form.cleaned_data['period_stay']
             #baby_number = form.cleaned_data['baby_number']
             Baby.objects.create(name=name, gender= gender, age=age, location=location, name_dropper=name_dropper, time_arrival=time_arrival, name_parents=name_parents, amount_paid=amount_paid, period_stay=period_stay) #baby_number=baby_number)
-            return HttpResponseRedirect(reverse('baby'))
+            return HttpResponseRedirect(reverse("baby"))
     else:
         form = BabyForm()
     babylist = Baby.objects.all()    
-    return render(request, 'baby_app/addbaby.html', {'babylist': babylist, 'form': form})
+    return render(request, 'baby_app/addbaby.html', {'babylist': babylist})
 
 #create view to edit baby page
 def editbaby(request, baby_id):
@@ -93,12 +94,38 @@ def pickup(request, baby_id):
     if request.method == 'POST':
         form = BabyForm(request.POST)
         if form.is_valid():
+            name = form.cleaned_data['name']
+            name_dropper = form.cleaned_data['name_dropper']
+            time_arrival = form.cleaned_data['time_arrival']
             baby_picked = form.cleaned_data['baby_picked']
             name_picker = form.cleaned_data['name_picker']
             comment = form.cleaned_data['comment']
-            Baby.objects.create(baby_picked=baby_picked, name_picker=name_picker, comment=comment)
+            Baby.objects.create(name=name, name_dropper=name_dropper, time_arrival=time_arrival, baby_picked=baby_picked, name_picker=name_picker, comment=comment)
             return HttpResponseRedirect('pickupbaby')
     else:        
         form = PickupForm()
     babylist = Baby.objects.all()
     return render(request, 'baby_app/pickup.html', {'babylist': babylist})    
+
+
+#create a view for the store page
+def store_view(request):
+    itemlist = Item.objects.all()
+    return render(request, 'baby_app/store.html')
+
+
+#create a view for the add item page
+def add_Item(request):
+    if request.method == 'POST':
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            quantity = form.cleaned_data['quantity']
+            Item.objects.create(name=name, quantity=quantity)
+            return HttpResponseRedirect(reverse("store"))
+    return render(request, 'baby_app/additem.html')
+
+
+#create a view for the transactions page
+def transaction_view(request):
+    return render(request, 'baby_app/transactions.html')

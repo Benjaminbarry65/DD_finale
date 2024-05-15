@@ -3,3 +3,5 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Baby)
+admin.site.register(Pickup)
+admin.site.register(Item)
