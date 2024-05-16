@@ -1,0 +1,19 @@
+.footer {
+    background-color: #343a40; /* Dark background color */
+    color: #dc1212; /* White text color */
+    padding: 20px 0; /* Add some padding top and bottom */
+    position: fixed; /* Fixed position at the bottom */
+    width: 100%; /* Full width */
+    bottom: 0; /* Position at the bottom of the viewport */
+  }
+
+  .container {
+    max-width: 960px; /* Limit container width */
+    margin: 0 auto; /* Center the content horizontally */
+    padding: 0 15px; /* Add some padding */
+  }
+  
+  .container p {
+    margin: 0; /* Remove default margin for paragraph */
+    text-align: center; /* Center the text */
+  }

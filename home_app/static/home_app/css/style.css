@@ -1,0 +1,9 @@
+.navbar_wrapper {
+    margin: 2rem 2rem;
+}
+
+.nav_items {
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+}

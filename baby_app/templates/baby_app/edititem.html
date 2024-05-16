@@ -27,7 +27,9 @@
     <form action="{% url "edititem" item_id %}" method="POST">
         {% csrf_token %}
         {{ itemform }} 
-        <input type="submit" value="Update Item">  
+        <button class="bg-purple-800 hover:bg-pink-300 text-white font-bold py-1 px-2 rounded">
+            Update Item
+        </button>  
     </form>
 
 

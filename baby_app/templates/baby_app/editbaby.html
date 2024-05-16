@@ -26,8 +26,10 @@
     </nav>
     <form action="{% url "editbaby" baby_id %}" method="POST">
         {% csrf_token %}
-        {{ babyform }} 
-        <input type="submit" value="Update Baby">  
+        {{ babyform }}  
+        <button class="bg-purple-800 hover:bg-pink-300 text-white font-bold py-1 px-2 rounded">
+            Update Baby
+        </button> 
     </form>
 
 
