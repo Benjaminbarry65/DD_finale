@@ -8,49 +8,49 @@ from django.template import loader
 # Create your views here.
 #create views for baby page
 def babyhome(request):
-    #form = BabyForm()
+    #babyform = BabyForm()
     babylist = Baby.objects.all()
     return render(request, 'baby_app/baby.html', {'babylist': babylist})
 
 #create view to add baby page
 def addbaby(request):
     if request.method == 'POST':
-        form = BabyForm(request.POST)
+        babyform = BabyForm(request.POST)
         print(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            gender = form.cleaned_data['gender']
-            age = form.cleaned_data['age']
-            location = form.cleaned_data['location']
-            name_dropper = form.cleaned_data['name_dropper']
-            time_arrival = form.cleaned_data['time_arrival']
-            name_parents = form.cleaned_data['name_parents']
-            amount_paid = form.cleaned_data['amount_paid']
-            period_stay = form.cleaned_data['period_stay']
-            #baby_number = form.cleaned_data['baby_number']
+        if babyform.is_valid():
+            name = babyform.cleaned_data['name']
+            gender = babyform.cleaned_data['gender']
+            age = babyform.cleaned_data['age']
+            location = babyform.cleaned_data['location']
+            name_dropper = babyform.cleaned_data['name_dropper']
+            time_arrival = babyform.cleaned_data['time_arrival']
+            name_parents = babyform.cleaned_data['name_parents']
+            amount_paid = babyform.cleaned_data['amount_paid']
+            period_stay = babyform.cleaned_data['period_stay']
+            #baby_number = babyform.cleaned_data['baby_number']
             Baby.objects.create(name=name, gender= gender, age=age, location=location, name_dropper=name_dropper, time_arrival=time_arrival, name_parents=name_parents, amount_paid=amount_paid, period_stay=period_stay) #baby_number=baby_number)
             return HttpResponseRedirect(reverse("baby"))
     else:
-        form = BabyForm()
+        babyform = BabyForm()
     babylist = Baby.objects.all()    
-    return render(request, 'baby_app/addbaby.html', {'babylist': babylist})
+    return render(request, 'baby_app/addbaby.html', {'babylist': babylist, 'babyform':babyform})
 
 #create view to edit baby page
 def editbaby(request, baby_id):
     baby = Baby.objects.get(id=baby_id)
     if request.method == 'POST':
-        form = BabyForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            gender = form.cleaned_data['gender'] 
-            age = form.cleaned_data['age']
-            location = form.cleaned_data['location']
-            name_dropper = form.cleaned_data['name_dropper']
-            time_arrival = form.cleaned_data['time_arrival']
-            name_parents = form.cleaned_data['name_parents']
-            amount_paid = form.cleaned_data['amount_paid']
-            period_stay = form.cleaned_data['period_stay']
-            #baby_number = form.cleaned_data['baby_number']
+        babyform = BabyForm(request.POST)
+        if babyform.is_valid():
+            name = babyform.cleaned_data['name']
+            gender = babyform.cleaned_data['gender'] 
+            age = babyform.cleaned_data['age']
+            location = babyform.cleaned_data['location']
+            name_dropper = babyform.cleaned_data['name_dropper']
+            time_arrival = babyform.cleaned_data['time_arrival']
+            name_parents = babyform.cleaned_data['name_parents']
+            amount_paid = babyform.cleaned_data['amount_paid']
+            period_stay = babyform.cleaned_data['period_stay']
+            #baby_number = babyform.cleaned_data['baby_number']
 
           #updating fields in the database
             baby.name = name
@@ -67,8 +67,8 @@ def editbaby(request, baby_id):
             redirect_url = reverse('baby')
             return HttpResponseRedirect(redirect_url)
     else:
-        form = BabyForm(initial={'name':name, 'gender':gender, 'age':age, 'location':location, 'name_dropper':name_dropper, 'time_arrival':time_arrival, 'name_parents':name_parents, 'amount_paid':amount_paid, 'period_stay':period_stay}) # 'baby_number':baby_number})
-    return render(request, 'baby_app/editbaby.html', {'form': form, 'baby_id':baby_id})    
+        babyform = BabyForm(initial={'name':baby.name, 'gender':baby.gender, 'age':baby.age, 'location':baby.location, 'name_dropper':baby.name_dropper, 'time_arrival':baby.time_arrival, 'name_parents':baby.name_parents, 'amount_paid':baby.amount_paid, 'period_stay':baby.period_stay}) # 'baby_number':baby_number})
+    return render(request, 'baby_app/editbaby.html', {'babyform': babyform, 'baby_id':baby_id})    
 
 #create view to delete baby 
 def deletebaby(request, baby_id):
@@ -89,43 +89,102 @@ def pickupbaby(request):
     return render(request, 'baby_app/babypick.html', {'babylist': babylist})
 
 
-def pickup(request, baby_id):
-    baby = Baby.objects.get(id=baby_id)
+def pickup(request):
     if request.method == 'POST':
-        form = BabyForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            name_dropper = form.cleaned_data['name_dropper']
-            time_arrival = form.cleaned_data['time_arrival']
-            baby_picked = form.cleaned_data['baby_picked']
-            name_picker = form.cleaned_data['name_picker']
-            comment = form.cleaned_data['comment']
-            Baby.objects.create(name=name, name_dropper=name_dropper, time_arrival=time_arrival, baby_picked=baby_picked, name_picker=name_picker, comment=comment)
-            return HttpResponseRedirect('pickupbaby')
+        pickform = PickupForm(request.POST)
+        if pickform.is_valid():
+            baby_name = pickform.cleaned_data['baby_name']
+            #baby_picked = pickform.cleaned_data['baby_picked']
+            name_picker = pickform.cleaned_data['name_picker']
+            comment = pickform.cleaned_data['comment']
+            Pickup.objects.create(baby_name=baby_name, name_picker=name_picker, comment=comment)
+            return HttpResponseRedirect('pickup')
     else:        
-        form = PickupForm()
-    babylist = Baby.objects.all()
-    return render(request, 'baby_app/pickup.html', {'babylist': babylist})    
+        pickform = PickupForm()
+    pickuplist = Pickup.objects.all()
+    return render(request, 'baby_app/pickup.html', {'pickuplist': pickuplist, 'pickform': pickform})    
 
 
 #create a view for the store page
 def store_view(request):
     itemlist = Item.objects.all()
-    return render(request, 'baby_app/store.html')
+    return render(request, 'baby_app/store.html', {'itemlist': itemlist})
 
 
 #create a view for the add item page
 def add_Item(request):
     if request.method == 'POST':
-        form = ItemForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            quantity = form.cleaned_data['quantity']
-            Item.objects.create(name=name, quantity=quantity)
+        itemform = ItemForm(request.POST)
+        if itemform.is_valid():
+            item_name = itemform.cleaned_data['item_name']
+            item_quantity = itemform.cleaned_data['item_quantity']
+            Item.objects.create(item_name=item_name, item_quantity=item_quantity)
             return HttpResponseRedirect(reverse("store"))
-    return render(request, 'baby_app/additem.html')
+    else:
+        itemform = ItemForm()
+    itemlist = Item.objects.all()        
+    return render(request, 'baby_app/additem.html', {'itemlist': itemlist, 'itemform': itemform})
+
+#create view to edit item
+def edit_item(request, item_id):
+    item = Item.objects.get(id=item_id)
+    if request.method == 'POST':
+        itemform = ItemForm(request.POST)
+        if itemform.is_valid():
+            item_name = itemform.cleaned_data['item_name']
+            item_quantity = itemform.cleaned_data['item_quantity']
+
+          #updating fields in db  
+            item.item_name = item_name
+            item.item_quantity = item_quantity
+            item.save()
+            redirect_url = reverse('store')
+            return HttpResponseRedirect(redirect_url)
+    else:
+        itemform = ItemForm(initial={'item_name':item.item_name, 'item_quantity':item.item_quantity})        
+    return render(request, 'baby_app/edititem.html', {'itemform':itemform, 'item_id':item_id})    
+
+#create view to delete item
+def delete_item(request, item_id):
+    Item.objects.filter(id= item_id).delete()
+    redirect_url = reverse('store')
+    return HttpResponseRedirect(redirect_url)    
 
 
 #create a view for the transactions page
 def transaction_view(request):
-    return render(request, 'baby_app/transactions.html')
+    translist = Baby.objects.values('name', 'amount_paid')
+    doll_list = DollPay.objects.all()
+    return render(request, 'baby_app/transactions.html', {'translist': translist, 'doll_list':doll_list})
+
+#create a view for the doll payment page
+def doll_pay(request):
+    if request.method == 'POST':
+        dollform = DollPayForm(request.POST)
+        if dollform.is_valid():
+            baby_name = dollform.cleaned_data['baby_name']
+            doll_bought = dollform.cleaned_data['doll_bought']
+            amount_paid = dollform.cleaned_data['amount_paid']
+            quantity = dollform.cleaned_data['quantity']
+            DollPay.objects.create(baby_name=baby_name, doll_bought=doll_bought, amount_paid=amount_paid, quantity=quantity)
+            return HttpResponseRedirect(reverse("transactions"))
+    else:
+        dollform = DollPayForm()
+    doll_list = DollPay.objects.all()
+    return render(request, 'baby_app/dollpay.html', {'dollform': dollform}) 
+
+
+#create a view for the duty page
+def dutyadd(request):
+    if request.method == 'POST':
+        dutyform = DutyForm(request.POST)
+        if dutyform.is_valid():
+            name_sitter = dutyform.cleaned_data['name_sitter']
+            name_baby = dutyform.cleaned_data['name_baby']
+            #duty_date = dutyform.cleaned_data['duty_date']
+            Duty.objects.create(name_sitter=name_sitter, name_baby=name_baby) #, duty_date=duty_date)
+            return HttpResponseRedirect(reverse('duty'))
+    else:
+        dutyform = DutyForm()
+    dutylist = Duty.objects.all()            
+    return render(request, 'baby_app/duty.html', {'dutylist': dutylist, 'dutyform': dutyform})      

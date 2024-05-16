@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-purple-300">
-    <nav class="bg-purple-800 gap-2 p-4 items-end text-white">
+    <nav class="flex bg-purple-800 gap-2 p-4 items-center text-white">
         <div>
             <a href="/home" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                 <img src="{% static "home_app/images/daystar_logo_2.jpg" %}" class="h-8 rounded-lg" alt="Daystar_Daycare_Logo">
@@ -16,63 +16,20 @@
             </a>
             <div class="justify-end">
                 <a href="/home" class="px-1">Home</a>
-                <a href="/baby/" class="px-1">Babies</a>
+                <a href="/baby" class="text-pink-300 px-1">Babies</a>
                 <a href="/sitter" class="px-1">Sitters</a>
                 <a href="/baby/transactions" class="px-1">Transactions</a>
-                <a href="/baby/store" class="text-pink-300 px-1">Store</a> 
-                <a href="/logout" class="px-1">Logout</a>
+                <a href="/baby/store" class="px-1">Store</a> 
+                <a href="logout" class="px-1">Logout</a>
             </div>
         </div>   
-    </nav>  
+    </nav>
+    <form action="{% url "edititem" item_id %}" method="POST">
+        {% csrf_token %}
+        {{ itemform }} 
+        <input type="submit" value="Update Item">  
+    </form>
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5">
-        <div class="flex flex-wrap">
-            <div class="p-4 w-1/2">
-                <a href="additem"> 
-                    <button type="submit" class="text-white bg-purple-800 hover:bg-pink-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Item</button>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <table class="w-full text-sm text-left rtl:text-right text-black-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    #
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Item
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Quantity
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Action
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in itemlist %}
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ item.id }}</th>
-                <td px-6 py-4>{{ item.item_name }}</td>
-                <td px-6 py-4>{{ item.item_quantity }}</td>
-                <td class="px-6 py-4">
-                    <a href="{% url "edititem" item.id %}">
-                        <button type="submit" class="px-1 py-0 bg-purple-800 text-white hover:bg-pink-300 rounded-lg">Edit</button>
-                    </a>
-                    <a href="{% url "deleteitem" item.id %}">
-                        <button type="submit" class="px-1 py-0 bg-purple-800 text-white hover:bg-pink-300 rounded-lg">Delete</button>  
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    
-    </table>
-    
-    
 
 
 
@@ -124,6 +81,6 @@
         </div>
     </footer> {% endcomment %}
 
- 
+
 </body>
 </html>

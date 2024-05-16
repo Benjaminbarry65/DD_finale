@@ -16,70 +16,50 @@
             </a>
             <div class="justify-end">
                 <a href="/home" class="px-1">Home</a>
-                <a href="/baby/" class="text-pink-300 px-1">Babies</a>
-                <a href="/sitter" class="px-1">Sitters</a>
-                <a href="/abouts" class="px-1">About</a>
-                <a href="/contacts" class="px-1">Contact</a> 
+                <a href="/baby/" class="px-1">Babies</a>
+                <a href="/sitter" class="text-pink-300 px-1">Sitters</a>
+                <a href="/baby/transactions" class="px-1">Transactions</a>
+                <a href="/baby/store" class="px-1">Store</a> 
+                <a href="/logout" class="px-1">Logout</a>
             </div>
         </div>   
     </nav>  
-    
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5">
-        <div class="flex flex-wrap">
-            <div class="w-1/2">
-                <form action="post" class="p-4">
-                    <input class="form-control p-4 rounded-lg" type="text" name="search" placeholder="Search Baby">
-                    <button type="submit" class="text-white bg-purple-800 hover:bg-pink-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Search</button>
-                </form>
-            </div>     
-        </div>
-    </div>
-    <table class="w-full text-sm text-left rtl:text-right text-black-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Baby Number
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Gender
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Location
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Person Dropping
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Arrival Time
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Action
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for baby in babylist %}
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ baby.id }}</th>
-                <td px-6 py-4>{{ baby.name }}</td>
-                <td px-6 py-4>{{ baby.gender }}</td>
-                <td px-6 py-4>{{ baby.location }}</td>
-                <td px-6 py-4>{{ baby.name_dropper }}</td>
-                <td px-6 py-4>{{ baby.time_arrival }}</td>
-                <td class="px-6 py-4">
-                    <a href="{% url "pickup" baby.id %}">
-                        <button type="submit" class="px-1 py-0 bg-purple-800 text-white hover:bg-pink-300 rounded-lg">Pickup</button>
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    
-    </table>
 
+    <form action="" method="POST" class="max-w-sm mx-auto py-5">
+        {% csrf_token %}
+        {{ dutyform }}
+        <input type="submit" value="Add Duty">
+    </form>
+
+    <div>
+        <h1 class="text-2xl">DUTY TABLE</h1>
+        <table class="w-full text-sm text-left rtl:text-right text-black-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Sitter Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Baby Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Date
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for duty in dutylist %}
+                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ duty.name_sitter }}</th>
+                    <td px-6 py-4>{{ duty.name_baby }}</td>
+                    <td px-6 py-4>{{ duty.duty_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        
+        </table>
+    </div>
+    
 
 
 
@@ -131,12 +111,6 @@
         </div>
     </footer> {% endcomment %}
 
-
+ 
 </body>
 </html>
-
-
-
-
-
-

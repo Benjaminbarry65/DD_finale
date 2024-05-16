@@ -18,37 +18,50 @@
                 <a href="/home" class="px-1">Home</a>
                 <a href="/baby/" class="text-pink-300 px-1">Babies</a>
                 <a href="/sitter" class="px-1">Sitters</a>
-                <a href="/abouts" class="px-1">About</a>
-                <a href="/contacts" class="px-1">Contact</a> 
+                <a href="/baby/transactions" class="px-1">Transactions</a>
+                <a href="/baby/store" class="px-1">Store</a> 
+                <a href="/logout" class="px-1">Logout</a>
             </div>
         </div>   
     </nav>  
     
+    <form action="" method="POST" class="max-w-sm mx-auto py-5">
+        {% csrf_token %}
+        {{ pickform }}
+        <input type="submit" value="Pick Up">
+    </form>
+
     <div>
-        <h1 class="text-center text-4xl font-bold text-purple-800 dark:text-gray-100">Pick-Up Form</h1>
-        <form class="max-w-sm mx-auto py-5" method="post">
-            {% csrf_token %}
-            {% for baby in babylist %}
-            <div class="mb-5">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baby Name</label>
-                <p class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> {{ baby.name }} </p>
-            </div>
-            
-            <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="time_arrival" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Time Picked</label>
-                <input type="time" name="arrival_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
-            </div>
-            <div class="mb-5">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Picked By</label>
-                <input type="text" name="name_picker" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
-            </div>
-            <div class="mb-5">
-                <label for="name" class="block mb-5 text-sm font-medium text-gray-900 dark:text-white">Comment</label>
-                <input type="text" name="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-8 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Comment"/>
-            </div>
-            <button type="submit" class="text-white bg-purple-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Pick Up</button>
-            {% endfor %}
-        </form>
+        <h1 class="text-2xl">PICKED BABIES</h1>
+        <table class="w-full text-sm text-left rtl:text-right text-black-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Baby Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Time Picked
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Name of Picker
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Comment
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pickup in pickuplist %}
+                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ pickup.baby_name }}</th>
+                    <td px-6 py-4>{{ pickup.baby_picked }}</td>
+                    <td px-6 py-4>{{ pickup.name_picker }}</td>
+                    <td px-6 py-4>{{ pickup.comment }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        
+        </table>
     </div>
 
 

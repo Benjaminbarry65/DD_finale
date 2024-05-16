@@ -18,8 +18,9 @@
                 <a href="/home" class="px-1">Home</a>
                 <a href="/baby" class="text-pink-300 px-1">Babies</a>
                 <a href="/sitter" class="px-1">Sitters</a>
-                <a href="/abouts" class="px-1">About</a>
-                <a href="/contacts" class="px-1">Contact</a> 
+                <a href="/baby/transactions" class="px-1">Transactions</a>
+                <a href="/baby/store" class="px-1">Store</a> 
+                <a href="/logout" class="px-1">Logout</a>
             </div>
         </div>   
     </nav>  
@@ -39,7 +40,7 @@
                     </a>
                 </div>
                 <div>
-                    <a href="pickupbaby"> 
+                    <a href="pickup"> 
                         <button type="submit" class="text-white bg-purple-800 hover:bg-pink-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-2.5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Baby Pick-Up</button>
                     </a>
                 </div>
@@ -62,21 +63,6 @@
                     Age
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Location
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Person Dropping
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Arrival Time
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Parent's Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Amount Paid
-                </th>
-                <th scope="col" class="px-6 py-3">
                     Period of Stay
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -91,11 +77,6 @@
                 <td px-6 py-4>{{ baby.name }}</td>
                 <td px-6 py-4>{{ baby.gender }}</td>
                 <td px-6 py-4>{{ baby.age }}</td>
-                <td px-6 py-4>{{ baby.location }}</td>
-                <td px-6 py-4>{{ baby.name_dropper }}</td>
-                <td px-6 py-4>{{ baby.time_arrival }}</td>
-                <td px-6 py-4>{{ baby.name_parent }}</td>
-                <td px-6 py-4>{{ baby.amount_paid }}</td>
                 <td px-6 py-4>{{ baby.period_stay }}</td>
                 <td class="px-6 py-4">
                     <a href="{% url "editbaby" baby.id %}">

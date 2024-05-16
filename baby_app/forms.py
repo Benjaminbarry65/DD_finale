@@ -1,4 +1,6 @@
 from django import forms
+from .models import *
+from django.forms import ModelForm
 
 
 
@@ -10,7 +12,7 @@ class BabyForm(forms.Form):
     name_dropper = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     time_arrival = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control'}), required=False)
     name_parents = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
-    amount_paid = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control', 'step': 0.1}), required=False)
+    amount_paid = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'step': 0.1}), required=False)
     period_stay = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     #baby_number = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}), required=False)
 
@@ -38,22 +40,17 @@ class BabyForm(forms.Form):
             self.add_error('amount_paid', 'Please add the amount paid')
             self.add_error('period_stay', 'Please add the period of stay')
             #self.add_error('baby_number', 'Please add the baby number')
-        elif len(amount_paid) < 10000:
+        elif amount_paid < 10000:
             self.add_error('amount_paid', 'Amount paid must be atleast Ugx10,000')
 
         return cleaned_data    
 
 
 
-class PickupForm(forms.Form):
-    #baby_name = forms.ForeignKey(BabyForm, on_delete=models.CASCADE, null=False, blank=False, default=0)
-    #baby_dropper = forms.ForeignKey(BabyForm, on_delete=models.CASCADE)
-    #baby_arrival = forms.ForeignKey(BabyForm, on_delete=models.CASCADE)
-    baby_picked = forms.DateTimeField()  
-    name_picker = forms.CharField(max_length=100)
-    comment = forms.CharField(max_length=300)
-
-
+class PickupForm(forms.ModelForm):
+    class Meta:
+        model = Pickup
+        fields = ['baby_name', 'name_picker', 'comment']
 
 
 class ItemForm(forms.Form):
@@ -72,3 +69,21 @@ class ItemForm(forms.Form):
             self.add_error('item_quantity', 'Item quantity must be atleast 1')
 
         return cleaned_data    
+
+
+class DollPayForm(forms.ModelForm):
+    class Meta:
+        model = DollPay
+        fields = ['baby_name', 'doll_bought', 'amount_paid', 'quantity']
+        # labels = [
+        #     'baby_name': 'Baby Name', 
+        #     'doll_bought': 'Doll Bought', 
+        #     'amount_paid': 'Amount Paid', 
+        #     'quantity': 'Quantity'
+        # ]
+
+
+class DutyForm(forms.ModelForm):
+    class Meta:
+        model = Duty
+        fields = ['name_sitter', 'name_baby']
