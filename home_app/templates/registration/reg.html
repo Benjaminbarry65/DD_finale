@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daystar Daycare</title>
+    <link rel="icon" type="image/x-icon" href="{% static "home_app/images/daystar_logo_2.2.png" %}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-purple-300">
     <nav class="flex bg-purple-800 gap-2 p-4 items-center text-white">
             <a href="home" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                 <img src="{% static "home_app/images/daystar_logo_2.jpg" %}" class="h-8 rounded-lg" alt="Daystar_Daycare_Logo">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Daystar Daycare</span>
+                <span class="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">Daystar Daycare</span>
             </a>
     </nav>
 
@@ -23,7 +24,9 @@
         {% for field in reguserForm %}
             {{ field }}
         {% endfor %}
-        <input type="submit" value="Register">
+        <button class="bg-purple-800 hover:bg-pink-300 text-white font-bold py-1 px-2 rounded">
+            Register
+        </button>
     </form>
 
 

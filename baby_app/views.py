@@ -12,11 +12,11 @@ def babyhome(request):
     babylist = Baby.objects.all()
     return render(request, 'baby_app/baby.html', {'babylist': babylist})
 
+
 #create view to add baby page
 def addbaby(request):
     if request.method == 'POST':
         babyform = BabyForm(request.POST)
-        print(request.POST)
         if babyform.is_valid():
             name = babyform.cleaned_data['name']
             gender = babyform.cleaned_data['gender']
@@ -33,7 +33,7 @@ def addbaby(request):
     else:
         babyform = BabyForm()
     babylist = Baby.objects.all()    
-    return render(request, 'baby_app/addbaby.html', {'babylist': babylist, 'babyform':babyform})
+    return render(request, 'baby_app/addbaby.html', {'babylist': babylist})
 
 #create view to edit baby page
 def editbaby(request, baby_id):
@@ -72,7 +72,7 @@ def editbaby(request, baby_id):
 
 #create view to delete baby 
 def deletebaby(request, baby_id):
-    Baby.objects.filter(id= baby_id).delete()
+    Baby.objects.filter(id=baby_id).delete()
     redirect_url = reverse('baby')
     return HttpResponseRedirect(redirect_url)
 
@@ -123,7 +123,7 @@ def add_Item(request):
     else:
         itemform = ItemForm()
     itemlist = Item.objects.all()        
-    return render(request, 'baby_app/additem.html', {'itemlist': itemlist, 'itemform': itemform})
+    return render(request, 'baby_app/additem.html', {'itemlist': itemlist})
 
 #create view to edit item
 def edit_item(request, item_id):

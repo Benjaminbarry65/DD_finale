@@ -5,86 +5,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daystar Daycare</title>
+    <link rel="icon" type="image/x-icon" href="{% static "home_app/images/daystar_logo_2.2.png" %}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-purple-300">
-    <nav class="flex bg-purple-800 gap-2 p-4 items-center text-white">
+<body class="bg-purple-300 flex flex-col h-screen">
+    <div class="flex-grow">
+        <nav class="flex bg-purple-800 gap-2 p-4 items-center text-white">
+            <div>
+                <a href="/home" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                    <img src="{% static "home_app/images/daystar_logo_2.jpg" %}" class="h-8" alt="Daystar_Daycare_Logo">
+                    <span class="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">Daystar Daycare</span>
+                </a>
+                <div class="justify-end">
+                    <a href="/home" class="px-1">Home</a>
+                    <a href="/baby" class="text-pink-300 px-1">Babies</a>
+                    <a href="/sitter" class="px-1">Sitters</a>
+                    <a href="/baby/transactions" class="px-1">Transactions</a>
+                    <a href="/baby/store" class="px-1">Store</a> 
+                    <a href="/logout" class="px-1">Logout</a>
+                </div>
+            </div>   
+        </nav>
         <div>
-            <a href="/home" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                <img src="{% static "home_app/images/daystar_logo_2.jpg" %}" class="h-8" alt="Daystar_Daycare_Logo">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Daystar Daycare</span>
-            </a>
-            <div class="justify-end">
-                <a href="/home" class="px-1">Home</a>
-                <a href="/baby" class="text-pink-300 px-1">Babies</a>
-                <a href="/sitter" class="px-1">Sitters</a>
-                <a href="/baby/transactions" class="px-1">Transactions</a>
-                <a href="/baby/store" class="px-1">Store</a> 
-                <a href="/logout" class="px-1">Logout</a>
-            </div>
-        </div>   
-    </nav>
-    <div>
-        <form method='POST' class="max-w-sm mx-auto py-5 {% if babyform_field.errors %}errors{% endif %}">
-            {% csrf_token %}
-            {% comment %} {% for babyform_field in form %} {% endcomment %}
-                {{ babyform }}
-            {% comment %} {% endfor %} {% endcomment %}
-                <button class="bg-purple-800 hover:bg-pink-300 text-white font-bold py-1 px-2 rounded">
-                    Add Baby
-                </button>
-            {% comment %} <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baby Name</label>
-                <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Benjamin Barry"/>
-            </div>
-            <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                <label class="inline-flex text-gray-700 items-center mr-4">
-                    <input type="checkbox" name="gender" value="male" class="text-blue-500" />
-                    <span class="ml-2">Male</span>
-                </label>
-                <label class="inline-flex text-gray-700 items-center mr-4">
-                    <input type="checkbox" name="gender" value="female" class="text-blue-500" />
-                    <span class="ml-2">Female</span>
-                </label>
-            </div>
-            <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="age" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
-                <input type="number" name="age" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="2"/>
-            </div>
-            <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
-                <input type="text" name="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Kabalagala"/>
-            </div>
-            <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="name_dropper" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Person Dropping</label>
-                <input type="text" name="name_dropper" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Benjamin Barry"/>
-            </div>
-            <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="time_arrival" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Arrival Time</label>
-                <input type="time" name="time_arrival" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
-            </div>
-            <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="name_parents" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Parent's Name</label>
-                <input type="text" name="name_parents" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Benjamin Barry"/>
-            </div>
-            <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="amount_paid" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount Paid</label>
-                <input type="number" name="amount_paid" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
-            </div>
-            <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="period_stay" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Period Of Stay</label>
-                <input type="text" name="period_stay" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
-            </div>
-            <button type="submit" class="text-white bg-purple-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button> {% endcomment %}
-        </form>    
+            <form method='post' class="max-w-sm mx-auto py-5">
+                {% csrf_token %}
+                    {% comment %} {{ babyform }}
+                    <button class="bg-purple-800 hover:bg-pink-300 text-white font-bold py-1 px-2 rounded">
+                        Add Baby
+                    </button> {% endcomment %}
+                <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baby Name</label>
+                    <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Benjamin Barry"/>
+                </div>
+                <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
+                    <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                    <label class="inline-flex text-gray-700 items-center mr-4">
+                        <input type="checkbox" name="gender" value="male" class="text-blue-500" />
+                        <span class="ml-2">Male</span>
+                    </label>
+                    <label class="inline-flex text-gray-700 items-center mr-4">
+                        <input type="checkbox" name="gender" value="female" class="text-blue-500" />
+                        <span class="ml-2">Female</span>
+                    </label>
+                </div>
+                <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
+                    <label for="age" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
+                    <input type="number" name="age" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="2"/>
+                </div>
+                <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
+                    <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
+                    <input type="text" name="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Kabalagala"/>
+                </div>
+                <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
+                    <label for="name_dropper" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Person Dropping</label>
+                    <input type="text" name="name_dropper" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Benjamin Barry"/>
+                </div>
+                <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
+                    <label for="time_arrival" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Arrival Time</label>
+                    <input type="time" name="time_arrival" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                </div>
+                <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
+                    <label for="name_parents" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Parent's Name</label>
+                    <input type="text" name="name_parents" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Benjamin Barry"/>
+                </div>
+                <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
+                    <label for="amount_paid" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount Paid</label>
+                    <input type="number" name="amount_paid" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                </div>
+                <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
+                    <label for="period_stay" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Period Of Stay</label>
+                    <input type="text" name="period_stay" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                </div>
+                <button type="submit" class="text-white bg-purple-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button>
+            </form>    
+        </div>
     </div>
     
 
 
 
 
-    {% comment %} <footer class="bg-purple-800 rounded-lg shadow dark:bg-gray-900 m-4 fixed bottom-0 left-0 right-0 w-screen">
+    <footer class="bg-purple-800 rounded-lg shadow dark:bg-gray-900 m-4 fixed-bottom-0 left-0 right-0 w-screen">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <a href="/home" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
@@ -94,13 +95,6 @@
                 <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-black sm:mb-0 dark:text-gray-400">
                     <li>
                         <a href="/home" class="hover:underline me-4 md:me-6">Home</a>
-                    </li>
-                    <li>
-                        <a href="/abouts" class="hover:underline me-4 md:me-6">About</a>
-                    </li>
-                    
-                    <li>
-                        <a href="/contacts" class="hover:underline">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -130,7 +124,7 @@
                 </div>
             </div>
         </div>
-    </footer> {% endcomment %}
+    </footer>
 
 
 </body>

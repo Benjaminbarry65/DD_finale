@@ -19,7 +19,7 @@ class Baby(models.Model):
     age = models.IntegerField()
     location = models.CharField(max_length=200)
     name_dropper = models.CharField(max_length=100)
-    time_arrival = models.DateTimeField()
+    time_arrival = models.TimeField()
     name_parents = models.CharField(max_length=100)
     amount_paid = models.IntegerField()
     period_stay = models.CharField(max_length=50)

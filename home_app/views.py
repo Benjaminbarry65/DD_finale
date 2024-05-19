@@ -35,7 +35,7 @@ def reguser(request):
             reguserForm.save()
             username = reguserForm.cleaned_data['username']
             raw_password = reguserForm.cleaned_data['password1']
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(username=username, password1=raw_password)
             login(request, user)
             return HttpResponseRedirect(reverse('index'))
         else:

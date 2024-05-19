@@ -10,7 +10,7 @@ class BabyForm(forms.Form):
     age = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}), required=False)
     location = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     name_dropper = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
-    time_arrival = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control'}), required=False)
+    time_arrival = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'form-control'}), required=False)
     name_parents = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     amount_paid = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'step': 0.1}), required=False)
     period_stay = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
