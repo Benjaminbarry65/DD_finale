@@ -30,19 +30,27 @@
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5">
             <div class="flex flex-wrap">
                 <div class="w-1/2">
-                    <form action="post" class="p-4">
+                    <form action="{% url "searchsitter" %}" method="post" class="p-4">
+                        {% csrf_token %}
                         <input class="form-control p-4 rounded-lg" type="text" name="search" placeholder="Search Sitter">
-                        <button type="submit" class="text-white bg-purple-800 hover:bg-pink-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Search</button>
+                        <button type="submit" class="ml-2 text-white bg-purple-800 hover:bg-pink-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Search</button>
                     </form>
                 </div>     
                 <div class="p-4 w-1/2 flex justify-end">
-                    <a href="add"> 
-                        <button type="submit" class="text-white bg-purple-800 hover:bg-pink-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Sitter</button>
-                    </a>
+                    <div>
+                        <a href="add"> 
+                            <button type="submit" class="text-white bg-purple-800 hover:bg-pink-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Sitter</button>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{% url "duty" %}"> 
+                            <button type="submit" class="ml-2 text-white bg-purple-800 hover:bg-pink-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Give Duty</button>
+                        </a>
+                    </div>    
                 </div>
             </div>
         </div>    
-        <table class="w-full text-sm text-left rtl:text-right text-black-500 dark:text-gray-400">
+        <table class="w-full text-sm text-left rtl:text-right text-black-500 dark:text-gray-400 rounded">
             <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left">

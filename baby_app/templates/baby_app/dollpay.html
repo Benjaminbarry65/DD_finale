@@ -5,6 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daystar Daycare</title>
+    <style>
+        table {
+            border: 8px solid;
+            border-radius: 10px;
+            border-spacing: 10px;
+            border-color: purple-300;
+            padding: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
     <link rel="icon" type="image/x-icon" href="{% static "home_app/images/daystar_logo_2.2.png" %}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -29,20 +40,15 @@
 
         <form action="" method="POST" class="max-w-sm mx-auto py-5">
             {% csrf_token %}
-            {{ dollform }}
-            <button class="bg-purple-800 hover:bg-pink-300 text-white font-bold py-1 px-2 rounded">
-                Add Purchase
-            </button>
+            <table>
+            {{ dollform.as_table }}
+            </table> 
+            <div style="text-align:center">
+                <button class="bg-purple-800 hover:bg-pink-300 text-white font-bold py-1 px-2 rounded">
+                    Add Purchase
+                </button>
+            </div>    
 
-            {% comment %} <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="item_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item Name</label>
-                <input type="text" name="item_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
-            </div>
-            <div class="mb-5 {% if form_field.errors %}errors{% endif %}">
-                <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item Quantity</label>
-                <input type="number" name="quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
-            </div>
-            <button type="submit" class="text-white bg-purple-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Item</button> {% endcomment %}
         </form>
     </div>
     

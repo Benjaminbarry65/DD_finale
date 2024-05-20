@@ -83,6 +83,12 @@ def viewbaby(request, baby_id):
     template = loader.get_template('baby_app/viewbaby.html')
     return HttpResponse(template.render(context))    
 
+def searchbaby(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        babies = Baby.objects.filter(name__contains=searched)
+        return render(request, 'baby_app/searchbaby.html',{'searched':searched, 'babies':babies})    
+
 #create view for baby pick-up page   
 def pickupbaby(request):
     babylist = Baby.objects.all()

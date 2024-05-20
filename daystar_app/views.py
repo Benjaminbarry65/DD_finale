@@ -5,6 +5,7 @@ from .models import Sitter
 from django.urls import reverse
 from django.template import loader
 
+
 # Create your views here.
 #create view for sitter page
 def sitter_home(request):
@@ -87,3 +88,11 @@ def viewsitter(request, sitter_id):
 
     #sitter = Sitter.objects.filter(id=sitter_id)
     #return render(request,'daystar_app/viewsitter.html', {'sitter_id': sitter_id})    
+
+
+def searchsitter(request):
+    if request.method == 'POST':
+        search = request.POST['search']
+        sitters = Sitter.objects.filter(name__contains=search)  
+        return render(request,'daystar_app/searchsitter.html', {'search': search, 'sitters': sitters})    
+    

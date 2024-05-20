@@ -5,6 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daystar Daycare</title>
+    <style>
+        table {
+            border: 8px solid;
+            border-radius: 10px;
+            border-spacing: 10px;
+            border-color: purple-300;
+            padding: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
     <link rel="icon" type="image/x-icon" href="{% static "home_app/images/daystar_logo_2.2.png" %}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -28,10 +39,14 @@
         </nav>
         <form action="{% url "edititem" item_id %}" method="POST">
             {% csrf_token %}
-            {{ itemform }} 
-            <button class="bg-purple-800 hover:bg-pink-300 text-white font-bold py-1 px-2 rounded">
-                Update Item
-            </button>  
+            <table>
+            {{ itemform.as_table }} 
+            </table>
+            <div style="text-align:center">
+                <button class="bg-purple-800 hover:bg-pink-300 text-white font-bold py-1 px-2 rounded">
+                    Update Item
+                </button>
+            </div>      
         </form>
     </div>
 
